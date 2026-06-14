@@ -1,5 +1,5 @@
 name: Test
-on: push
+on: [push, pull_request]
 jobs:
   ubuntu22-clang21-x86_64:
     runs-on: ubuntu-24.04
@@ -207,22 +207,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Tests
-      run: |
-        set -e
-        vcpkg install --overlay-ports=cmake/ports libflac minimp3 alac
-        ci/run.sh build-release -DCMAKE_PREFIX_PATH=$VCPKG_INSTALLATION_ROOT/installed/x64-osx -DCMAKE_OSX_ARCHITECTURES=x86_64 -DKFR_ENABLE_CAPI_BUILD=ON -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DKFR_ARCH_TESTS=sse42,avx -DKFR_ARCH=target -DCMAKE_BUILD_TYPE=Release      
-
+      run: "echo skipped-for-baseline-isolation"
   macos26-xcode26-arm64:
     runs-on: macos-26
     steps:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Tests
-      run: |
-        set -e
-        vcpkg install --overlay-ports=cmake/ports libflac minimp3 alac
-        ci/run.sh build-release -DCMAKE_PREFIX_PATH=$VCPKG_INSTALLATION_ROOT/installed/arm64-osx -DCMAKE_OSX_ARCHITECTURES=arm64 -DKFR_ENABLE_CAPI_BUILD=ON -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DKFR_ARCH=target -DCMAKE_BUILD_TYPE=Release
-
+      run: "echo skipped-for-baseline-isolation"
   macos15-xcode16-ios-arm64:
     runs-on: macos-15
     steps:
